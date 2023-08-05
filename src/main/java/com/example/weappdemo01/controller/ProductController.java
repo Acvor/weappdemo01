@@ -24,4 +24,10 @@ public class ProductController {
     public ResponseData test(){
         return ResponseData.ok("测试");
     }
+
+    @GetMapping("/test2")
+    public ResponseData test2(){
+        return ResponseData.ok("测试2222");
+    }
+
 }
