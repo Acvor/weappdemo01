@@ -19,4 +19,9 @@ public class ProductController {
     public ResponseData productList(){
         return ResponseData.ok(productMapper.selectByExample(null));
     }
+
+    @GetMapping("/test")
+    public ResponseData test(){
+        return ResponseData.ok("测试");
+    }
 }
