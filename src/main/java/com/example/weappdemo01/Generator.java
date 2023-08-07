@@ -17,7 +17,7 @@ public class Generator {
     public static void main(String[] args) throws XMLParserException, IOException, InvalidConfigurationException, SQLException, InterruptedException {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        File configFile = new File("F:\\myProject_blueBrige\\weappdemo01\\src\\main\\resources\\generatorConfig.xml");
+        File configFile = new File("C:\\Users\\blyatman\\Desktop\\0807\\weappdemo01\\src\\main\\resources\\generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
