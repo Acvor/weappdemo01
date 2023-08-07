@@ -30,6 +30,4 @@ public class ProductController {
         return ResponseData.ok( productService.selectProductByParentId(id) );
     }
 
-
-
 }

@@ -47,8 +47,6 @@ export default class Index extends Component{
   }
 
   render(){
-    let br='\n'
-
     return (
       <View className='catagory'>
         <AtTabs
@@ -82,11 +80,11 @@ export default class Index extends Component{
                           <view className='paneContent'>
                             <Image style='height: 80px;width: 80px' src={secondLevelMenu.src} className="img"></Image>
                             <Text className="secondTitle">{secondLevelMenu.title}</Text>
-                            <Text className='text'>
+                            <View className='text'>
                               <Text className="price">￥{secondLevelMenu.price}</Text>
                               <Text className="sold">卖了114514件</Text>
-                            </Text>
-                            <Image src='http://43.139.94.243/icon/cart.png' className="cart"></Image>
+                              <Image src='http://43.139.94.243/icon/cart.png' className="cart"></Image>
+                            </View>
                           </view>
                         )
                       }
