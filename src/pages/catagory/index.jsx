@@ -33,7 +33,7 @@ export default class Index extends Component{
   componentDidMount(){
     let _this=this;
     Taro.request({
-      url: 'https://676fn98390.goho.co/productList', //必须为域名
+      url: 'https://g2.juntaitec.cn/api/productList', //必须为域名
       header: {
         'content-type': 'application/json' // 默认值
       },

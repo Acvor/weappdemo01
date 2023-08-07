@@ -77,7 +77,7 @@ var Index = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this = this;
       _tarojs_taro__WEBPACK_IMPORTED_MODULE_3___default().request({
-        url: 'https://676fn98390.goho.co/productList',
+        url: 'https://g2.juntaitec.cn/api/productList',
         //必须为域名
         header: {
           'content-type': 'application/json' // 默认值
