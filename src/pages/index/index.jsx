@@ -16,6 +16,19 @@ export default class Index extends Component {
   onScroll(e){
     console.log(e.detail)
   };
+  itemClick = (index) =>{
+    console.log(index)
+    if (index.value=="充值"){
+      Taro.navigateTo({
+        url: '/pages/me/index',
+      });
+    } else if(index.value=="点餐"){
+      Taro.navigateTo({
+        url: '/pages/catagory/index',
+      });
+    }
+
+  };
 
 
 
@@ -49,7 +62,7 @@ export default class Index extends Component {
                 <image src='https://g2.juntaitec.cn/shouye/4.jpg'></image>
             </SwiperItem>
         </Swiper>
-          <AtGrid  columnNum='2' onClick={handlecatagoryClick} data={
+          <AtGrid  columnNum='2' onClick={this.itemClick.bind(this)} data={
               [
                   {
                       image: 'https://g2.juntaitec.cn/dc.jpg',
