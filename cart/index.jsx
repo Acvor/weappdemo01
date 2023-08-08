@@ -1,7 +1,7 @@
 import './index.scss'
 import {Component} from "react";
 import {Checkbox, CheckboxGroup, Icon, Image, Navigator, Text, View} from "@tarojs/components";
-import TabBar from "../common/Index";
+import TabBar from "../pages/common";
 
 export default class Index extends Component {
   //定义变量
