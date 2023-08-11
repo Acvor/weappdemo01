@@ -1,10 +1,13 @@
 package com.example.weappdemo01.controller;
 
+import com.example.weappdemo01.bean.PayDTO;
 import com.example.weappdemo01.common.ResponseData;
 import com.example.weappdemo01.mapper.ProductMapper;
 import com.example.weappdemo01.service.ProductService;
+import com.example.weappdemo01.util.pay.WXPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +31,12 @@ public class ProductController {
     @GetMapping("/selectProductByParentId")
     public ResponseData selectProductByParentId(Integer id){
         return ResponseData.ok( productService.selectProductByParentId(id) );
+    }
+
+    @GetMapping("/pay")
+    public ResponseData pay(String name,Double total){
+        int payTotal = (int) (total*1);
+        return ResponseData.ok(WXPay.unifiedOrder(name,payTotal));
     }
 
 
