@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react';
 import {getStorage, useRouter} from '@tarojs/taro';
 import './index.scss'
-import {Button, Image, Swiper, SwiperItem, Text, View} from '@tarojs/components';
+import { Image, Swiper, SwiperItem, Text, View,Input} from '@tarojs/components';
 import Taro from "@tarojs/taro";
 import { AtFloatLayout,AtTag,AtInputNumber, AtButton  } from "taro-ui"
 
@@ -26,7 +26,6 @@ function Detail() {
     console.log('接收到的数据:', parsedSecondLevelMenu);
 
     setSecondLevelMenu(parsedSecondLevelMenu); // 设置商品数据到状态
-
 
     return () => {
       setSecondLevelMenu(null); // 在组件卸载时清空商品数据
@@ -57,31 +56,78 @@ function Detail() {
   };
 
 // 控制加入购物车浮动窗口
-
   function handleCartClose() {
     setIsSHow(false)
   }
 
-  const handleChange = (newValue) =>{
-    setValue(newValue)
+
+  //event.target.value获取当前输入框的值，并转换为整数，如果字符串不能转换为有效的整数返回NaN
+  const handleChange = (event) =>{
+    const newValue = parseInt(event.target.value)
+    if (!isNaN(newValue)){
+      setValue(newValue);
+    }
   }
+
+  //数量减少，prevValue 参数，当前的状态值
+  const handleIncrement = () => {
+      setValue((prevValue) => prevValue + 1);
+  };
+
+  //数量增加
+  const handleDecrement = () => {
+    if (value>1) {
+      setValue((prevValue) => prevValue - 1);
+    }
+  };
+
+  //传输数据到购物车
   const handleButton=()=>{
     console.log("传输数据",zcDetail)
     console.log("传输的num：",value)
-    const data ={
-      zcDetail:zcDetail,
-      value:value
+    const data = {
+      id: zcDetail.id,
+      title: zcDetail.title,
+      image: zcDetail.src,
+      price: zcDetail.price,
+      num: value,
+      selected:false
     };
-    const dataArray =[data];
-    Taro.setStorage({
-      key:"myData",
-      data:JSON.stringify(dataArray)
-    })
+    // 获取数据
+    Taro.getStorage({
+      key: 'myData',
+      success: function (res) {
+        console.log(data)
+        const dataArray = JSON.parse(res.data);
+        dataArray.push(data)
+        Taro.setStorage({
+          key: "myData",
+          data: JSON.stringify(dataArray),
+          success: function () {
+            console.log('数组存储成功');
+          },
+          fail: function (error) {
+            console.log('数组存储失败', error);
+          }
+        });
+      },
+      fail: function () {
+        const dataArray = [data]
+        Taro.setStorage({
+          key: "myData",
+          data: JSON.stringify(dataArray),
+          success: function () {
+            console.log('数组存储成功');
+          },
+          fail: function (error) {
+            console.log('数组存储失败', error);
+          }
+        });
+        console.log('获取数据失败');
+      }
+    });
     setIsSHow(false)
   }
-
-
-
 
 
   return (
@@ -120,11 +166,11 @@ function Detail() {
       {/*底部+弹窗*/}
       <View className='bottom'  >
         <View className='left'>
-          <Image src="http://43.139.94.243/icon/index.png" style='height:80rpx;width:90rpx' bindtap="backtoindex"/>
-          <Image bindtap="tocart" src="http://43.139.94.243/icon/cart.png" style="height:90rpx;width:90rpx"  onClick={handleCartClick}/>
+          <Image src="http://43.139.94.243/icon/index.png" style='height:80rpx;width:90rpx' />
+          <Image className="imgHover" src="http://43.139.94.243/icon/cart.png" style="height:90rpx;width:90rpx"  onClick={handleCartClick}/>
         </View>
         <view className="right">
-          <text onClick={()=>handleCart()} className="textone">加入购物车</text>
+          <text onClick={handleCart} className="textone">加入购物车</text>
           <AtFloatLayout isOpened={isShow} onClose={()=>handleCartClose()}  title="加入购物车">
             <View>
               <image src={zcDetail.src} className="cartImg"></image>
@@ -144,27 +190,26 @@ function Detail() {
               </View>
               <View className="num">
                 <Text className="num-title">购买数量：</Text>
-                <AtInputNumber
+                <button onClick={handleDecrement} className="decrement">-</button>
+                <Input
                     min={1}
                     className="nums"
+                    type="number"
                     max={100}
                     step={1}
                     value={value}
                     onChange={handleChange}
                 />
+                <button onClick={handleIncrement} className="increment">+</button>
               </View>
               <AtButton formType='secondary' className="button1" onClick={handleButton}>确 定</AtButton>
-
-
             </View>
           </AtFloatLayout>
         </view>
-
         <view className="right">
           <text className="texttwo">联系客服</text>
         </view>
       </View>
-
     </View>
   );
 }

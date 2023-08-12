@@ -61,6 +61,9 @@ swiper image {
   bottom: 0px;
   background: #fff;
 }
+.imgHover:active{
+  color: #ff9900;
+}
 /*底部左边样式*/
 .left {
   width: 25%;
@@ -90,6 +93,7 @@ swiper image {
   font-size: 26px;
   background: green;
 }
+
 /*加入购物车图标样式*/
 .carts-icon-num {
   position: absolute;
@@ -175,9 +179,42 @@ swiper image {
   font-size: 35px;
   margin-left: 13px;
 }
+
+/*详情页面数量的加减设置*/
 .nums{
-  margin-left: 300px;
+  display: flex;
+  width: 50px;
+  text-align: center;
+  margin-top: -53px;
+  margin-left:565px;
 }
+
+/*减号的位置*/
+.decrement{
+  display: flex;
+  width: 60px;
+  height: 50px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: -45px;
+  margin-right: 160px;
+}
+
+/*加号的位置*/
+.increment{
+  display: flex;
+  height: 50px;
+  width: 60px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: -55px;
+  margin-right: 30px;
+
+}
+
+
 .button1{
   background-color: lightskyblue;
   margin-top: 120px;
