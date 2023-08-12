@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script>
+    // let step1 = ((resolve, reject) => {
+    //   console.log("买菜");
+    //   resolve("买好了")
+    //
+    // })
+    // let step2 = ((resolve, reject) => {
+    //   console.log("洗菜");
+    //   resolve("洗好了")
+    //
+    // })
+    // let step3 = ((resolve, reject) => {
+    //   console.log("炒菜");
+    //   resolve("炒好了")
+    //
+    // })
+    // let step4 = ((resolve, reject) => {
+    //   console.log("吃菜");
+    //   resolve("吃好了")
+    //
+    // })
+    // let step5 = ((resolve, reject) => {
+    //   console.log("洗碗");
+    //   resolve("洗好了")
+    //
+    // })
+    // new Promise(step1)
+    //   .then(res => {
+    //     console.log(res)
+    //     return new Promise(step2)
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     return new Promise(step3)
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     return new Promise(step4)
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     return new Promise(step5)
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //   })
+    function axios(method,url,data){
+      let pro=new Promise((resolve,reject)=>{
+        //  写原生的Ajax
+        request=new XMLHttpRequest();
+        request.onreadystatechange=()=>{
+          if(request.readyState===4){
+            if(request.status===200){
+              resolve(request.responseText)
+            }
+          }
+        }
+        request.open(method,url)
+        request.send(null)
+      })
+      return pro;
+    }
+
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

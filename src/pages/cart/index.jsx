@@ -1,7 +1,8 @@
 import './index.scss'
 import {Component} from "react";
 import {Checkbox, CheckboxGroup, Icon, Image, Navigator, Text, View} from "@tarojs/components";
-import TabBar from "../pages/common";
+import TabBar from "../common/Index";
+import Taro from '@tarojs/taro';
 
 export default class Index extends Component {
   //定义变量
@@ -9,61 +10,34 @@ export default class Index extends Component {
     super();
     this.state = {
       carts: [
-        {
-          id: 1,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v1)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 3,
-          price: '88.00',
-        },
-        {
-          id: 2,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v2)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 1,
-          price: '188.00',
-        },
-        {
-          id: 3,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v3)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 2,
-          price: '288.00',
-        },
-        {
-          id: 4,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v4)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 2,
-          price: '388.00',
-        },
-        {
-          id: 5,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v4)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 2,
-          price: '388.00',
-        },
-        {
-          id: 6,
-          title: '好喝⾼颜值MEOW莫斯卡托⽓泡葡萄酒甜型⾹槟少⼥粉猫起泡酒(v4)',
-          image:
-            'https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg',
-          num: 2,
-          price: '388.00',
-        }
+
 
       ], // 购物车列表
       hascheckList: [],
       totalPrice: 0, // 总价，初始为0
-      selectAllStatus: true // 全选状态，默认全选
+      selectAllStatus: false // 全选状态，默认全选
     }
 
+  }
+  //初始化函数
+  componentDidMount() {
+    console.log(this.state.carts)
+    let _this = this;
+    Taro.getStorage({
+      key: 'myData',
+      success: function (res) {
+        const arrayData = JSON.parse(res.data); // 将字符串转换为数组
+        _this.setState({
+          carts:arrayData
+
+        })
+        console.log('获取数组数据成功', arrayData);
+      },
+      fail: function (error) {
+        console.log('获取数组数据失败', error);
+      }
+    });
+    console.log(this.state.carts)
   }
 
   //自定义函数
@@ -93,7 +67,6 @@ export default class Index extends Component {
    */
   addCount(carts, e) {
     const index = e.currentTarget.dataset.index
-    console.log(carts)
     let num = carts[index].num
     num = num + 1
     carts[index].num = num
@@ -142,7 +115,6 @@ export default class Index extends Component {
    * 当前商品选中事件
    */
   selectList(id, e) {
-    console.log(e)
     const index = e.currentTarget.dataset.index
     let carts = this.state.carts
     // const selected = carts[index].selected

@@ -35,6 +35,8 @@
 }
 
 .cart-list .cart-pro-price{
+  position: relative;
+  left: -100px;
   display: inline-block;
   font-size:30px;
   color: #b30000;
